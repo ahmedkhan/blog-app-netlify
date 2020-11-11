@@ -1,10 +1,14 @@
 import * as React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Paper from "@material-ui/core/Paper";
+import ButtonAppBar from '../component/ButtonAppBar'
+
 
 const BlogPosting = (props: any) => {
-  console.log(props);
   return (
+
+    <div>
+      < ButtonAppBar/>
     <Paper elevation={3} style={{textAlign: "center", padding: "70px 30px"}}>
       <div style={{padding: "20px"}}>
         <h1>{props.pageContext.data.node.title}</h1>
@@ -28,6 +32,7 @@ const BlogPosting = (props: any) => {
         </p>
       </div>
     </Paper>
+    </div>
   );
 };
 

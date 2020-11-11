@@ -15,8 +15,9 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Link } from "gatsby";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,6 +87,9 @@ const Blogpost = (props: nodeProps) => {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
+
+          {props.detail.title === "What is Material UI" ?
+
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
@@ -94,12 +98,23 @@ const Blogpost = (props: nodeProps) => {
             aria-expanded={expanded}
             aria-label="show more"
           >
-            <ExpandMoreIcon />
-          </IconButton>
+            <Link to ='/blog/contentful-blog-post1'>
+           <ArrowRightAltIcon/>
+           </Link>
+          </IconButton>: 
+          <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <Link to ='/blog/contentful-blog-post2'>
+         <ArrowRightAltIcon/>
+         </Link>
+        </IconButton>}
         </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent></CardContent>
-        </Collapse>
       </Card>
     </div>
   );

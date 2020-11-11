@@ -8,8 +8,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Badge, Dialog, DialogTitle, List, Avatar, ListItem, Typography, ListItemAvatar, ListItemText } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { blue } from '@material-ui/core/colors';
-import {useHistory} from 'react-router-dom'
-
+import {Link} from "gatsby"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +40,8 @@ export interface SimpleDialogProps {
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
-  const history = useHistory();
+
+
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
@@ -50,16 +50,6 @@ function SimpleDialog(props: SimpleDialogProps) {
 
   const handleListItemClick = (value: string) => {
     onClose(value);
-
-    switch (value){
-      case "What is Material UI":
-          history.push('/')
-
-      case "What is Bootstrap":
-          history.push('/')          
-      
-    }
-
   };
 
   return (
@@ -67,14 +57,25 @@ function SimpleDialog(props: SimpleDialogProps) {
       <DialogTitle id="simple-dialog-title">Chose a Article</DialogTitle>
       <List>
         {designs.map((design) => (
-          <ListItem button onClick={() => handleListItemClick(design)} key={design}>
+          design === "What is Material UI" ?
+            <ListItem  button key={design}>
+                <ListItemAvatar>
+                  <Avatar className={classes.avatar}>
+                    <PersonIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <Link style={{color: "inherit", textDecoration: "none"}} to='/blog/contentful-blog-post1'><ListItemText primary={design} /></Link>
+            </ListItem>: 
+
+            <ListItem  button key={design}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={design} />
+            <Link style={{color: "inherit", textDecoration: "none"}} to='/blog/contentful-blog-post2'><ListItemText primary={design} /></Link>
           </ListItem>
+            
         ))}
       </List>
     </Dialog>
