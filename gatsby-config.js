@@ -1,10 +1,13 @@
+const dotenv = require("dotenv");
+dotenv.config();
 module.exports = {
-  siteMetadata: {
-    title: `Gatsby Typescript Starter`,
-  },
-  plugins: [
-    `gatsby-plugin-react-helmet`,
-    // Add typescript stack into webpack
-    `gatsby-plugin-typescript`
+  plugins: [    
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: "1va15ba3kqts",
+        accessToken: "RYp2Z7nasVvpBGAqLVLVI-eZUG_Xust5MpVyD2ZVJts",
+      },
+    },
   ],
 }
