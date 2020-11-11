@@ -1,7 +1,9 @@
 import * as React from "react";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 import Blogpost from "../component/blogpost";
-import { node, blog } from "../interface";
+import { blog } from "../interface";
+import Blogdetail from '../component/blogpost'
+
 
 const blogs = () => {
   const data = useStaticQuery(
@@ -30,11 +32,12 @@ const blogs = () => {
   );
 
   return (
-    <div>
+    <div style={{display:"flex", justifyContent: "space-between", margin: "50px 50px"}} >
       {data.allContentfulProject12ABlogWebsite.edges.map((blog: blog) => {
         return (
-          <div key = {blog.node.id}>
-            <Blogpost detail={blog.node} />
+          <div key = {blog.node.id} style={{display: "inline-block"}}>
+              <Blogpost detail={blog.node} 
+              />
           </div>
         );
       })}
