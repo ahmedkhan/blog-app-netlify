@@ -10,6 +10,9 @@ export interface node {
       fluid: {
         src: string
       }
+    },
+    body :{
+      body : string
     }
   }
   

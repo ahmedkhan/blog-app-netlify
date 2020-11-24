@@ -5,26 +5,31 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { Badge, Dialog, DialogTitle, List, Avatar, ListItem, Typography, ListItemAvatar, ListItemText } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import { Button, Dialog, DialogTitle, List, Avatar, ListItem, Typography, ListItemAvatar, ListItemText } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { blue } from '@material-ui/core/colors';
 import {Link} from "gatsby"
 
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-    avatar: {
-      backgroundColor: blue[100],
-      color: blue[600],
-    },
+
+   toolbar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  toolbarTitle: {
+    flex: 1,
+  },
+  toolbarSecondary: {
+    justifyContent: 'space-between',
+    overflowX: 'auto',
+  },
+  toolbarLink: {
+    padding: theme.spacing(1),
+    flexShrink: 0,
+  },
+
   }),
 );
 
@@ -97,24 +102,38 @@ export default function ButtonAppBar() {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            See My Blogs
-          </Typography>
-          <IconButton aria-label="show 4 new mails" color="inherit" onClick={handleClickOpen}>
-          <Badge badgeContent={2} color="secondary">
-            <AssignmentIcon />
-          </Badge>
+    <React.Fragment>
+      <Toolbar className={classes.toolbar}>
+        <Button size="small">Subscribe</Button>
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          align="center"
+          noWrap
+          className={classes.toolbarTitle}
+        >
+          Blog
+        </Typography>
+        <IconButton>
+          <SearchIcon />
         </IconButton>
-        <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
-
-        </Toolbar>
-      </AppBar>
-    </div>
+        <Button variant="outlined" size="small">
+          Sign up
+        </Button>
+      </Toolbar>
+      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Technology</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Design</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Culture</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Business</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Politice</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Opnion</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Scince</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Health</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Style</Link>
+        <Link style={{color: "inherit", textDecoration: "none"}} to="/">Travel</Link>        
+      </Toolbar>
+    </React.Fragment>
   );
 }

@@ -5,6 +5,7 @@ import ButtonAppBar from '../component/ButtonAppBar'
 
 
 const BlogPosting = (props: any) => {
+  console.log(props.pageContext.data.node)
   return (
 
     <div>
@@ -28,7 +29,7 @@ const BlogPosting = (props: any) => {
         {props.pageContext.data.node.excerpt.excerpt}
         </p>
         <p>
-          {documentToReactComponents(props.pageContext.data.node.bodyText.json)}
+         {documentToReactComponents(props.pageContext.data.node.body.json)}
         </p>
       </div>
     </Paper>

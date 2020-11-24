@@ -4,11 +4,15 @@ import { nodeProps } from "../interface";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Collapse from "@material-ui/core/Collapse";
+import Hidden from '@material-ui/core/Hidden';
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -35,12 +39,24 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.shortest,
       }),
     },
-
+    markdown: {
+      ...theme.typography.body2,
+      padding: theme.spacing(3, 0),
+    },
     expandOpen: {
       transform: "rotate(180deg)",
     },
     avatar: {
       backgroundColor: red[500],
+    },
+    card: {
+      display: 'flex',
+    },
+    cardDetails: {
+      flex: 1,
+    },
+    cardMedia: {
+      width: 160,
     },
   })
 );
@@ -55,67 +71,61 @@ const Blogpost = (props: nodeProps) => {
 
   return (
     <div>
-      <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={props.detail.title}
-          subheader={props.detail.updatedAt}
-        />
-        <CardMedia
-          className={classes.media}
-          image={props.detail.featuredImage.fluid.src}
-          title={props.detail.slug}
-        />
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.detail.excerpt.excerpt}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
+      <Grid item xs={12} md={8}>
+        <CardActionArea component="a">
+          <Card className={classes.card}>
+            <div className={classes.cardDetails}>
+              <CardContent>
+                <Typography component="h2" variant="h5">
+                  {props.detail.title}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  {props.detail.updatedAt}
+                </Typography>
+                <Typography variant="subtitle1" paragraph>
+                  {props.detail.excerpt.excerpt}
+                </Typography>
+                <CardMedia
+                  className={classes.media}
+                  image={props.detail.featuredImage.fluid.src}
+                  title={props.detail.slug}
+                />
+                <Typography variant="subtitle1" color="primary">
+                  Continue reading...
+                {props.detail.title === "Why do we use it?" ?
+                    <IconButton
+                      className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                      })}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label="show more"
+                    >
+                      <Link to='/blog/why-do-we-use-it'>
+                        <ArrowRightAltIcon />
+                      </Link>
+                    </IconButton> :
+                    <IconButton
+                      className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                      })}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label="show more"
+                    >
+                      <Link to='/blog/what-is-lorem-ipsum'>
+                        <ArrowRightAltIcon />
+                      </Link>
+                    </IconButton>}
+                </Typography>
 
-          {props.detail.title === "What is Material UI" ?
+              </CardContent>
+            </div>
+          </Card>
+        </CardActionArea>
 
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <Link to ='/blog/contentful-blog-post1'>
-           <ArrowRightAltIcon/>
-           </Link>
-          </IconButton>: 
-          <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <Link to ='/blog/contentful-blog-post2'>
-         <ArrowRightAltIcon/>
-         </Link>
-        </IconButton>}
-        </CardActions>
-      </Card>
+      </Grid>
+      
     </div>
   );
 };

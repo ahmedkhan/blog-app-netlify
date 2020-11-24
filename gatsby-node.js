@@ -4,32 +4,32 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const response = await graphql(`
     query {
-      allContentfulProject12ABlogWebsite {
-        edges {
-          node {
-            slug
-            updatedAt
-            title
-            featuredImage {
-              fluid {
-                src
-              }
-            }
-            bodyText {
-              json
-            }
-
-            excerpt {
-              excerpt
-            }
+     allContentfulBlogPost {
+    edges {
+      node {
+        title
+        updatedAt(formatString: "DD MMMM YYYY")
+        slug
+        id
+        featuredImage {
+          fluid {
+            src
           }
+        }
+        excerpt {
+          excerpt
+        }
+        body {
+          json
         }
       }
     }
-   `);
+  }
+ }
+ `);
 
    console.log(response)
-  response.data.allContentfulProject12ABlogWebsite.edges.forEach(edge => {
+  response.data.allContentfulBlogPost.edges.forEach(edge => {
     createPage({
       path: `/blog/${edge.node.slug}`,
       component: path.resolve("./src/templates/blog-post.tsx"),
